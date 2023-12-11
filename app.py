@@ -67,10 +67,6 @@ def plot_hand_movement(data, max_width, min_width):
 
     return peaks_df
 
-# Rest of your Streamlit app code...
-
-
-
 # Streamlit app starts here
 st.title('Hand Movement Visualization App')
 
@@ -97,13 +93,12 @@ for uploaded_file in uploaded_files:
     min_width = st.slider(f'Select Minimum Peak Width for {uploaded_file.name}', min_value=1, max_value=200, value=40, key=f"min_width_{uploaded_file.name}")
 
     # Process the file and plot the data
-    if st.button(f'Plot and Analyze {uploaded_file.name}'):
-        peaks_df = plot_hand_movement(df2, max_width, min_width)
+    peaks_df = plot_hand_movement(df2, max_width, min_width)
 
-        # Provide a download link for the peaks DataFrame
-        st.download_button(
-            label="Download Peaks Data as CSV",
-            data=peaks_df.to_csv(index=False).encode('utf-8'),
-            file_name=f'{uploaded_file.name.split(".")[0]}_peaks_data.csv',
-            mime='text/csv',
-        )
+    # Provide a download link for the peaks DataFrame
+    st.download_button(
+        label="Download Peaks Data as CSV",
+        data=peaks_df.to_csv(index=False).encode('utf-8'),
+        file_name=f'{uploaded_file.name.split(".")[0]}_peaks_data.csv',
+        mime='text/csv',
+    )
